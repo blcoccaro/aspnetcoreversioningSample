@@ -5,6 +5,7 @@ namespace Services.Interfaces
 {
     public interface IWeatherForecastService
     {
-        IEnumerable<WeatherForecast> Get();        
+        IEnumerable<WeatherForecast> Get();
+        IEnumerable<WeatherForecast> GetNew();
     }
 }

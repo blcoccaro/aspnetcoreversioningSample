@@ -26,6 +26,17 @@ namespace aspnetcoreversioningSample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddApiVersioning(config => {
+                config.DefaultApiVersion = new ApiVersion(1,1);
+                config.AssumeDefaultVersionWhenUnspecified = true;
+                config.ReportApiVersions = true;
+                config.ApiVersionReader = Microsoft.AspNetCore.Mvc.Versioning.ApiVersionReader.Combine(
+                    new Microsoft.AspNetCore.Mvc.Versioning.HeaderApiVersionReader("X-Version"),
+                    new Microsoft.AspNetCore.Mvc.Versioning.HeaderApiVersionReader("version")
+                );
+            });
+
             services.AddScoped<Services.Interfaces.IWeatherForecastService, Services.WeatherForecastService>();
         }
 
