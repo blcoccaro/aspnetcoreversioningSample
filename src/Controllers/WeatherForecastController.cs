@@ -9,9 +9,10 @@ namespace aspnetcoreversioningSample.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [ApiVersion("1.0")]
+    [ApiVersion("1.1")]
     public class WeatherForecastController : ControllerBase
-    {
-        
+    {        
 
         private readonly ILogger<WeatherForecastController> logger;
         private readonly Services.Interfaces.IWeatherForecastService service;
@@ -23,9 +24,16 @@ namespace aspnetcoreversioningSample.Controllers
         }
 
         [HttpGet]
+        [MapToApiVersion("1.0")]
         public IEnumerable<WeatherForecast> Get()
         {
             return service.Get();
+        }
+        [HttpGet]
+        [MapToApiVersion("1.1")]
+        public IEnumerable<WeatherForecast> GetNew()
+        {
+            return service.GetNew();
         }
     }
 }
