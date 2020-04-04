@@ -2,38 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using aspnetcoreversioningSample.v1_0;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace aspnetcoreversioningSample.Controllers
+namespace aspnetcoreversioningSample.Controllers.v1_0
 {
     [ApiController]
     [Route("[controller]")]
     [ApiVersion("1.0")]
-    [ApiVersion("1.1")]
     public class WeatherForecastController : ControllerBase
     {        
 
         private readonly ILogger<WeatherForecastController> logger;
-        private readonly Services.Interfaces.IWeatherForecastService service;
+        private readonly Services.v1_0.Interfaces.IWeatherForecastService service;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, Services.Interfaces.IWeatherForecastService service)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, Services.v1_0.Interfaces.IWeatherForecastService service)
         {
             this.logger = logger;
             this.service = service;
         }
 
         [HttpGet]
-        [MapToApiVersion("1.0")]
         public IEnumerable<WeatherForecast> Get()
         {
             return service.Get();
-        }
-        [HttpGet]
-        [MapToApiVersion("1.1")]
-        public IEnumerable<WeatherForecast> GetNew()
-        {
-            return service.GetNew();
         }
     }
 }
